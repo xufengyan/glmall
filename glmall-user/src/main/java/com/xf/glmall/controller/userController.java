@@ -29,4 +29,8 @@ public class userController {
         List<UmsMember> list =userService.getAllUser();
         return list;
     }
+
+
+
+
 }
