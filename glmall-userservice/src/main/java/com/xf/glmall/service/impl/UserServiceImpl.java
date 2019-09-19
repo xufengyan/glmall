@@ -1,14 +1,13 @@
 package com.xf.glmall.service.impl;
 
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.xf.glmall.dao.UmsMemberReceiveAddressMapper;
 import com.xf.glmall.dao.UserMapper;
 import com.xf.glmall.entity.UmsMember;
 import com.xf.glmall.entity.UmsMemberReceiveAddress;
 import com.xf.glmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 

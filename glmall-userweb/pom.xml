@@ -6,17 +6,12 @@
         <groupId>com.xf.glmall</groupId>
         <artifactId>glmall-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <!--<parent>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
-        <!--<version>2.1.7.RELEASE</version>-->
-        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-    <!--</parent>-->
     <groupId>com.xf.glmall</groupId>
-    <artifactId>glmall-user</artifactId>
+    <artifactId>glmall-userweb</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>glmall-user</name>
+    <name>glmall-userweb</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -24,8 +19,6 @@
     </properties>
 
     <dependencies>
-
-        <!--引入api-->
         <dependency>
             <groupId>com.xf.glmall</groupId>
             <artifactId>glmall-api</artifactId>
@@ -34,15 +27,10 @@
 
         <dependency>
             <groupId>com.xf.glmall</groupId>
-            <artifactId>glmall-serviceUtil</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xf.glmall</groupId>
             <artifactId>glmall-webUtil</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>
