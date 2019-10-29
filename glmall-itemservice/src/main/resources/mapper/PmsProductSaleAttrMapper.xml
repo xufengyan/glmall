@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xf.glmall.dao.PmsProductSaleAttrMapper">
+
+    <resultMap id="selectSpuSaleAttrListCheckBySkuMap" type="com.xf.glmall.entity.PmsProductSaleAttr" autoMapping="true">
+
+        <result column="sa_id" property="id"/>
+        <collection property="pmsProductSaleAttrValueList" ofType="com.xf.glmall.entity.PmsProductSaleAttrValue" autoMapping="true">
+            <result column="sav_id" property="id"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="selectSpuSaleAttrListCheckBySku"  resultMap="selectSpuSaleAttrListCheckBySkuMap" parameterType="string">
+       SELECT
+            sa.*,sav.*,sa.id as sa_id,sav.id as sav_id,if(ssav.sku_id,1,0) as isChecked
+            FROM
+            pms_product_sale_attr sa
+            inner JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id
+            AND sa.sale_attr_id = sav.sale_attr_id and sa.product_id = #{productId}
+            LEFT JOIN pms_sku_sale_attr_value ssav ON ssav.sale_attr_id=sa.sale_attr_id
+            and sav.id=ssav.sale_attr_value_id and ssav.sku_id=#{skuId}
+    </select>
+
+
+</mapper>

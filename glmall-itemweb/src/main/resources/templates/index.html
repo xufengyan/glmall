@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--加入了thymeleaf约束    可以使用thymeleaf标签-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>测试页面</title>
+</head>
+<body>
+啊的飒飒大师
+<p>asdasdasd</p>
+<br >
+{test}
+
+<!--thymeleaf取值-->
+<p th:text="${test}"></p>
+
+<!--thymeleaf循环-->
+<p th:each="str:${list}" th:text="'测试值：'+${str}"></p>
+
+<div th:each="str:${list}"><p th:text="${str}"></p></div>
+
+
+------------------------------------------------------------
+<!--判断-->
+<p th:each="str:${list}" th:if="${str}==1" th:text="${str}"></p>
+
+<!--传值给JavaScript-->
+<a th:href="'javascript:a(\''+${test}+'\')'">点击</a>
+
+
+
+<!--checked 选中-->
+<br>
+<input type="checkbox" th:checked="${checked}==1" />勾选
+
+
+<!--引入页面-->
+
+<div th:include="indexInner"></div>
+
+<!--引入部分页面-->
+<div th:include="indexInner::innerPart"></div>
+
+
+<div id="test">点击我吧</div>
+<script src="/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
+<!--<script type="text/javascript" charset="UTF-8" src="/js/test.js"/>-->
+<script type="text/javascript" charset="UTF-8" src="/js/test2.js"/>
+
+<script language="JavaScript">
+    function a(h) {
+        alert(h)
+    }
+
+
+
+
+
+</script>
+<script>
+    var test=new testWeb("test");//实例化这个对象
+    $("#test").click(function () {
+        alert("dssd")
+        test.testFuntion();//通过对象调用这个方法
+    })
+</script>
+</body>
+</html>
