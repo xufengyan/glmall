@@ -15,3 +15,8 @@ glmall-webUtil 主要管理的是前端需要的依赖包
 下面是例子：
 glmall-webUser 端口为8050
 glmall-serviceUSer 端口为8060
+
+glmall-itemservice 商品详情后台 端口为 8280
+glmall-itemweb 商品详情前台  端口为 8180
+
+glmall-searchweb 搜索服务前台 端口为8181和glmall-itemweb （同用glmall-itemservice连接数据库）

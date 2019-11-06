@@ -25,6 +25,11 @@ public class itemController {
     SpuService spuService;
 
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("item.index")
     public String index(Model model){
 

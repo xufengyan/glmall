@@ -12,6 +12,7 @@ import com.xf.glmall.entity.UmsMemberReceiveAddress;
 import com.xf.glmall.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Schedules;
 import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;

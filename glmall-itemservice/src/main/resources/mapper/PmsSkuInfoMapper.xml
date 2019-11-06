@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xf.glmall.dao.pmsSkuInfoMapper">
 
+
     <select id="selectSkuSaleAttrValueListBySpu" resultMap="selectSkuSaleAttrValueListBySpuMap">
         SELECT
             si.*,ssav.*,si.id as si_id ,ssav.id as ssav_id
@@ -15,12 +16,23 @@
         AND si.id = ssav.sku_id
     </select>
 
+    <select id="selectSkuAll" resultMap="selectSkuSaleAttrValueListBySpuMap">
+        select si.id as si_id,si.*,sav.id as sav_id,sav.*
+        from  pms_sku_info si,
+        pms_sku_attr_value sav
+        where si.id=sav.sku_id
+    </select>
+
 
     <resultMap id="selectSkuSaleAttrValueListBySpuMap" type="com.xf.glmall.entity.PmsSkuInfo" autoMapping="true">
         <result column="si_id" property="id"></result>
+        <collection property="pmsSkuAttrValueList" ofType="com.xf.glmall.entity.PmsSkuAttrValue" autoMapping="true">
+            <result column="sav_id" property="id"></result>
+        </collection>
         <collection property="pmsSkuSaleAttrValueList" ofType="com.xf.glmall.entity.PmsSkuSaleAttrValue" autoMapping="true">
             <result column="ssav_id" property="id"></result>
         </collection>
+
     </resultMap>
 
 </mapper>

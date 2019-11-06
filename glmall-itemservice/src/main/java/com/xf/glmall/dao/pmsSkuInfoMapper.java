@@ -9,4 +9,6 @@ public interface pmsSkuInfoMapper extends Mapper<PmsSkuInfo> {
 
 
     List<PmsSkuInfo> selectSkuSaleAttrValueListBySpu(String productId);
+
+    List<PmsSkuInfo> selectSkuAll();
 }
