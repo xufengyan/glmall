@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class itemController {
@@ -34,13 +35,15 @@ public class itemController {
     public String index(Model model){
 
         List<Integer> list=new ArrayList<>();
-
+        Map<String,Object> map=new HashMap<>();
+//        map.put("test",null);
         for(int i=1;i<10;i++){
             list.add(i);
         }
         model.addAttribute("test","我只是来做测试的，我太难了");
         model.addAttribute("list",list);
         model.addAttribute("check",1);
+//        model.addAttribute("map",map);
         return "index";
     }
 
