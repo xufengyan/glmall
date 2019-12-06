@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.xf.glmall.Util.RedisUtil;
 import com.xf.glmall.dao.omsCartItemMapper;
 import com.xf.glmall.dao.pmsSkuImageMapper;
@@ -97,10 +98,13 @@ public class skuServiceImpl implements skuService {
                 //获取当前分布式锁的token值
 //                并判断是不是同一个用户操作
                 String lockToken = jedis.get(onLockKey + skuId);
+                String orderScript = "if redis.call('get', KEYS[1]) == ARGV[1] " +
+                        "then return redis.call('del', KEYS[1]) else return " +
+                        "0 end";
+                //使用lua脚本判断是不是当前用户的锁，是的话删除，不是的话则返回0
+                Long eval = (Long) jedis.eval(orderScript, Collections.singletonList(onLockKey + skuId),
+                        Collections.singletonList(token));
 
-                if (StringUtils.isNotBlank(lockToken) && token.equals(lockToken)) {
-                    jedis.del(onLockKey + skuId);
-                }
 
             } else {
                 //如果设置锁失败，则让这个线程睡几秒后再执行
@@ -402,6 +406,39 @@ public class skuServiceImpl implements skuService {
         //缓存同步
         flushCartCahe(omsCartItem.getMemberId());
         return message;
+    }
+
+    @Override
+    public Boolean checkPrice(String productId, BigDecimal productPrice) {
+
+        Boolean bool = false;
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
+
+        pmsSkuInfo.setId(productId);
+
+        PmsSkuInfo skuInfo = pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+
+        BigDecimal price = skuInfo.getPrice();
+
+        if(price.compareTo(productPrice)==0){
+            bool = true;
+        }
+        return bool;
+    }
+
+    /**
+     *
+     * 删除购物车业务
+     * @param prodoctId
+     * @return
+     */
+    @Override
+    public int delCartById(String prodoctId) {
+
+        OmsCartItem omsCartItem = new OmsCartItem();
+        omsCartItem.setProductId(prodoctId);
+        int msg = omsCartItemMapper.delete(omsCartItem);
+        return msg;
     }
 
 

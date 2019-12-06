@@ -5,6 +5,7 @@ import com.xf.glmall.entity.PmsSearchParam;
 import com.xf.glmall.entity.PmsSearchSkuInfo;
 import com.xf.glmall.entity.PmsSkuInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface skuService{
@@ -32,4 +33,8 @@ public interface skuService{
     List<OmsCartItem> cartList(String userId);
 
     int checkCart(OmsCartItem omsCartItem);
+
+    Boolean checkPrice(String productId, BigDecimal productPrice);
+
+    int delCartById(String prodoctId);
 }

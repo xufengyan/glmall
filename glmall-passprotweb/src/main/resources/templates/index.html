@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/gm1.css"/>
+    <script src="/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <title>登录</title>
+</head>
+<style type="text/css">
+
+    .weibostyle{
+        display:inline-block;
+        /*position: absolute;*/
+        /*margin-top: 8px;*/
+        width: 25px;
+        height: 25px;
+        background: url(/img/login_weibo@2x.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    .si_out h5 .threeUl{
+        white-space:nowrap;
+        position: fixed;
+        display: inline;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .si_out h5 .threeUl li{
+        list-style: none;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+</style>
+<body>
+<!--顶部logo-->
+
+<header>
+    <a href="http://www.baidu.com"><img src="/img/logo1.jpg"/></a>
+    <p>欢迎登录</p>
+
+</header>
+
+<div class="top-2">
+    <div class="top-2a">
+
+        <p></p>
+    </div>
+</div>
+
+<!--大图-->
+<div class="top-3">
+    <div class="img_1">
+        <img src="/img/5731485aN1134b4f0.jpg"/>
+    </div>
+    <div id="sign">
+
+        <div class="si_cen">
+            <h2 class="act btn1">用户登录</h2>
+
+        </div>
+
+        <div class="si_bom1 tab" style="display: block;">
+            <div class="error">
+                请输入账户名和密码
+            </div>
+
+            <form id="loginForm" action="" method="post">
+                <ul>
+                    <li class="top_1">
+                        <img src="/img/user_03.png" class="err_img1"/>
+
+                        <input type="text" name="username" placeholder=" 邮箱/用户名/已验证手机" class="user"/>
+                    </li>
+                    <li>
+                        <img src="/img/user_06.png" class="err_img2"/>
+                        <input type="password" name="password" placeholder=" 密码" class="password"/>
+
+                    </li>
+                    <li class="bri">
+                        <a href="">忘记密码</a>
+                    </li>
+                    <li class="ent">
+                        <button id="btn2" type="button" class="btn2"><a href="javascript:submitLogin();" class="a">登
+                            &nbsp; &nbsp;录</a></button>
+                    </li>
+
+                </ul>
+                <input type="hidden" id="ReturnUrl" name="ReturnUrl" th:value="${ReturnUrl}"/>
+            </form>
+        </div>
+        <div class="si_out" style="display: flex;justify-content:space-between;">
+            <h5 style="color: #FF0000;margin-left: 15px">
+                <span>第三方登录：</span>
+                <ul class="threeUl" style="margin: 8px 0 0 0;">
+                    <li ><a class="weibostyle" href="https://api.weibo.com/oauth2/authorize?client_id=2889971318&redirect_uri=http://cart.xf.com:8183/backLogin&state=xf"></a></li>
+                    <li style="margin: 0 0 0 0px;"><a class="weibostyle" href="https://api.weibo.com/oauth2/authorize?client_id=2889971318&redirect_uri=http://cart.xf.com:8183/backLogin&state=xf"></a></li>
+                </ul>
+                <!--<a class="weibostyle" href="https://api.weibo.com/oauth2/authorize?client_id=2889971318&redirect_uri=http://cart.xf.com:8183/backLogin&state=xf"></a>-->
+            </h5>
+            <h5 class="rig">
+                <img src="/img/4de5019d2404d347897dee637895d02b_25.png"/>
+                <span><a href="#">立即注册</a></span>
+            </h5>
+        </div>
+    </div>
+</div>
+
+
+<!--底部-->
+
+
+</body>
+<script language="JavaScript">
+
+
+    function submitLogin() {
+       var username=$("input:text[name='username']").val();
+       var password=$("input:password[name='password']").val();
+       var ReturnUrl=$("input:hidden[name='ReturnUrl']").val();
+
+        if(username!=''&&username!=undefined&&password!=undefined&&password!=''){
+
+            $.post("login",{"username":username,"password":password},function (token) {
+                if("fail"==token){
+                    $(".error").html("用户名或者密码错误")
+                    $(".error").show();
+                }else{
+                    window.location.href=ReturnUrl+"?token="+token;
+                }
+            })
+        }else {
+            $(".error").html("请输入用户名或者密码")
+            $(".error").show();
+        }
+
+
+
+    }
+
+    var btn2 = document.getElementsByClassName('btn2')[0];
+    var user = document.getElementsByClassName('username')[0];
+    var pass = document.getElementsByClassName('password')[0];
+    var err = document.getElementsByClassName('error')[0];
+
+    var err_img1 = document.getElementsByClassName('err_img1')[0];
+
+    var err_img2 = document.getElementsByClassName('err_img2')[0];
+
+
+    user.onfocus = function () {
+
+        user.style.border = '1px solid #999';
+
+    }
+
+    pass.onfocus = function () {
+
+        pass.style.border = '1px solid #999';
+    }
+    user.onblur = function () {
+
+        user.style.border = '1px solid green';
+    }
+    pass.onblur = function () {
+
+        pass.style.border = '1px solid green';
+    }
+</script>
+</html>

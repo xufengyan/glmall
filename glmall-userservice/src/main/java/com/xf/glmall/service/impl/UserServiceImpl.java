@@ -10,9 +10,9 @@ import com.xf.glmall.dao.UserMapper;
 import com.xf.glmall.entity.UmsMember;
 import com.xf.glmall.entity.UmsMemberReceiveAddress;
 import com.xf.glmall.service.UserService;
+import com.xf.glmall.util.MD5util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Schedules;
 import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    String umsMemberKey="umsMenber";
-
+    String umsMemberKey = "umsMenber";
+    String logKey = "umsMemberInfo";
     @Autowired
     UserMapper userMapper;
 
@@ -33,18 +33,22 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    MD5util md5Util;
+
     @Override
     public List<UmsMember> getAllUser() {
 
 
-        List<UmsMember> umsMemberList=new ArrayList<>();
+        List<UmsMember> umsMemberList = new ArrayList<>();
         //连接缓存
         Jedis jedis = redisUtil.getJedis();
         //查询缓存
-        String umsJson =jedis.get(umsMemberKey);
-        if(StringUtils.isNotBlank(umsJson)){
-            umsMemberList= JSON.parseObject(umsJson,new TypeReference<ArrayList<UmsMember>>(){});
-        }else{
+        String umsJson = jedis.get(umsMemberKey);
+        if (StringUtils.isNotBlank(umsJson)) {
+            umsMemberList = JSON.parseObject(umsJson, new TypeReference<ArrayList<UmsMember>>() {
+            });
+        } else {
             //如果缓存中没有，
             //设置redis分布式锁
 
@@ -54,32 +58,32 @@ public class UserServiceImpl implements UserService {
              * px 设置过期时间
              * time 时间(1000毫秒=1秒)
              */
-            String key=jedis.set(umsMemberKey,token,"nx","px",1000);
+            String key = jedis.set(umsMemberKey, token, "nx", "px", 1000);
 
             //判断锁是否设置成功
-            if(StringUtils.isNotBlank(key)&&"ok".equals(key)){
+            if (StringUtils.isNotBlank(key) && "ok".equals(key)) {
                 //设置成功的话，则有权在10秒内访问数据库
                 // 则查询mysql数据库
-                umsMemberList= getAllUserFormDb();
+                umsMemberList = getAllUserFormDb();
 
-                if(umsMemberList!=null){
+                if (umsMemberList != null) {
                     //如果数据库中有数据则将数据放入redis中
-                    jedis.set(umsMemberKey,JSON.toJSONString(umsMemberList));
-                }else{
+                    jedis.set(umsMemberKey, JSON.toJSONString(umsMemberList));
+                } else {
                     //如果数据库中没有该数据则将redis中这个数据设为null ，防止缓存穿透
                     //将空值设置一个过期时间
-                    jedis.setex(umsMemberKey,60*3,JSON.toJSONString(""));
+                    jedis.setex(umsMemberKey, 60 * 3, JSON.toJSONString(""));
                 }
 
                 //或者当前锁value值
-                String lockToken=jedis.get(umsMemberKey);
+                String lockToken = jedis.get(umsMemberKey);
                 //为了保证用户删除的是自己设置的锁，防止删除别的用户设置的锁
-                if(StringUtils.isNotBlank(lockToken)&&token.equals(lockToken)){
+                if (StringUtils.isNotBlank(lockToken) && token.equals(lockToken)) {
                     //在成功访问mysql之后，将redis锁释放掉
                     jedis.del(umsMemberKey);
                 }
 
-            }else{
+            } else {
                 //如果设置失败,则让这个线程睡几秒后再继续执行
                 try {
                     Thread.sleep(3000);
@@ -117,5 +121,88 @@ public class UserServiceImpl implements UserService {
 //        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = umsMemberReceiveAddressMapper.selectByExample(example);
 
         return umsMemberReceiveAddresses;
+    }
+
+
+    @Override
+    public UmsMember getlogin(UmsMember umsMember) {
+
+        umsMember.setPassword(md5Util.MD5PasswordEncryption(umsMember.getUsername(), logKey, umsMember.getPassword()));
+
+        Jedis jedis = null;
+
+        try {
+            jedis = redisUtil.getJedis();
+
+            if (jedis != null) {
+
+                String umsMemberStr = jedis.get("user:" + umsMember.getUsername() + umsMember.getPassword() + ":info");
+
+                if (StringUtils.isNotBlank(umsMemberStr)) {
+
+                    //密码正确
+                    UmsMember umsMemberCache = JSON.parseObject(umsMemberStr, UmsMember.class);
+
+                    return umsMemberCache;
+                }
+            }
+            //查询数据库，并将
+            UmsMember umsMemberDb = loginFromDb(umsMember);
+
+            if(umsMemberDb!=null){
+
+                jedis.setex("user:" + umsMemberDb.getUsername() + umsMemberDb.getPassword() + ":info",60*60*24,JSON.toJSONString(umsMemberDb));
+            }
+            return umsMemberDb;
+
+        } finally {
+            jedis.close();
+        }
+    }
+
+    /**
+     * 将生成的登录token放入redis
+     * @param token
+     * @param memberId
+     */
+    @Override
+    public void addUserToken(String token, String memberId) {
+
+        Jedis jedis =redisUtil.getJedis();
+
+        try {
+            jedis.setex("user:"+memberId+":token",60*60*2,token);
+        }finally {
+            jedis.close();
+        }
+
+    }
+
+    @Override
+    public UmsMember addOauthUser(UmsMember umsMember) {
+         userMapper.insertSelective(umsMember);
+         return umsMember;
+    }
+
+    @Override
+    public UmsMember checkOauthUser(UmsMember checkUms) {
+        UmsMember umsMember = userMapper.selectOne(checkUms);
+        return umsMember;
+    }
+
+    @Override
+    public UmsMemberReceiveAddress getReceiveAddressById(String receiveAddressId) {
+        UmsMemberReceiveAddress address =new UmsMemberReceiveAddress();
+        address.setId(receiveAddressId);
+        UmsMemberReceiveAddress receiveAddress = umsMemberReceiveAddressMapper.selectOne(address);
+        return receiveAddress;
+    }
+
+    private UmsMember loginFromDb(UmsMember umsMember) {
+        List<UmsMember> umsMemberDb=userMapper.select(umsMember);
+        if(umsMemberDb.size()>0){
+            return umsMemberDb.get(0);
+        }
+        return null;
     }
 }

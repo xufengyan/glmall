@@ -1,12 +1,14 @@
 package com.xf.glmall.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xf.glmall.annotations.LoginRequired;
 import com.xf.glmall.entity.*;
 import com.xf.glmall.service.attrService;
 import com.xf.glmall.service.skuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -24,6 +26,7 @@ public class searchController {
 
 
     @RequestMapping("index.html")
+    @LoginRequired(loginSuccess = false)
     public String index() {
         return "index";
     }

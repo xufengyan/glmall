@@ -3,6 +3,7 @@ package com.xf.glmall.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.xf.glmall.annotations.LoginRequired;
 import com.xf.glmall.entity.OmsCartItem;
 import com.xf.glmall.entity.PmsSkuInfo;
 import com.xf.glmall.service.skuService;
@@ -30,16 +31,26 @@ public class cartController {
     skuService skuService;
 
 
+    @RequestMapping("toTrade")
+    @LoginRequired(loginSuccess = true)
+    public ModelAndView toTrade(Integer isChecked, String skuId, ModelAndView model,HttpServletRequest request){
+        System.out.println(request.getAttribute("memberId"));
+        model.setViewName("toTrade");
+        return model;
+    }
+
     /**
      * 修改购物车列表选中状态
+     *
      * @param model
      * @return
      */
     @RequestMapping("checkCart")
-    public ModelAndView checkCart(Integer isChecked,String skuId,ModelAndView model) {
+    @LoginRequired(loginSuccess = false)
+    public ModelAndView checkCart(HttpServletRequest request,Integer isChecked, String skuId, ModelAndView model) {
 
-
-        String menberId="1";
+        String menberId =(String) request.getAttribute("memberId");
+        String nickname =(String) request.getAttribute("nickname");
         OmsCartItem omsCartItem = new OmsCartItem();
         omsCartItem.setProductSkuId(skuId);
         omsCartItem.setIsChecked(isChecked);
@@ -48,8 +59,8 @@ public class cartController {
         skuService.checkCart(omsCartItem);
 //        查询商品列表
         List<OmsCartItem> cartList = skuService.cartList(menberId);
-        model.addObject("totalAmount",getTotalAmount(cartList));
-        model.addObject("cartList",cartList);
+        model.addObject("totalAmount", getTotalAmount(cartList));
+        model.addObject("cartList", cartList);
         model.setViewName("cartListInner");
         return model;
     }
@@ -64,11 +75,13 @@ public class cartController {
      * @return
      */
     @RequestMapping("cartList")
+    @LoginRequired(loginSuccess = false)
     public ModelAndView cartList(ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
 
         List<OmsCartItem> omsCartItems = new ArrayList<>();
 
-        String menberId = "1";
+        String menberId =(String) request.getAttribute("memberId");
+        String nickname =(String) request.getAttribute("nickname");
         if (StringUtils.isNotBlank(menberId)) {
             //如果用户存在，则去查询数据库
             omsCartItems = skuService.cartList(menberId);
@@ -84,7 +97,7 @@ public class cartController {
             omsCartItem.setTotalPrice(omsCartItem.getPrice().multiply(BigDecimal.valueOf(omsCartItem.getQuantity())));
         }
         model.addObject("cartList", omsCartItems);
-        model.addObject("totalAmount",getTotalAmount(omsCartItems));
+        model.addObject("totalAmount", getTotalAmount(omsCartItems));
         model.setViewName("cartList");
 
         return model;
@@ -102,6 +115,7 @@ public class cartController {
      * @return
      */
     @RequestMapping("addToCart")
+    @LoginRequired(loginSuccess = false)
     public ModelAndView addToCart(ModelAndView model, String skuId, Integer quantity, HttpServletRequest request, HttpServletResponse response) {
         List<OmsCartItem> omsCartItems = new ArrayList<>();
 
@@ -124,7 +138,8 @@ public class cartController {
         omsCartItem.setProductBrand("");
         omsCartItem.setProductSkuCode("11111");
 
-        String menberId = "1";
+        String menberId =(String) request.getAttribute("memberId");
+        String nickname =(String) request.getAttribute("nickname");
 
         //判断用户是否登录
         if (StringUtils.isNotBlank(menberId)) {//如果登录了就将数据放入数据库
@@ -196,18 +211,18 @@ public class cartController {
 
     /**
      * 计算选中的商品的总价
+     *
      * @param omsCartItems
      * @return
      */
-    private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems){
+    private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems) {
 
-        BigDecimal totalAmount=new BigDecimal(0);
+        BigDecimal totalAmount = new BigDecimal(0);
         for (OmsCartItem cartItem : omsCartItems) {
-            if(cartItem.getIsChecked()==1){
+            if (cartItem.getIsChecked() == 1) {
                 totalAmount = totalAmount.add(cartItem.getTotalPrice());
             }
         }
-
         return totalAmount;
     }
 

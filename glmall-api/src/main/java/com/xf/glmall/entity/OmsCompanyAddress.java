@@ -7,15 +7,15 @@ public class OmsCompanyAddress implements Serializable {
 
     @Id
     private String id;
-    private String  addressName;
+    private String addressName;
     private int sendStatus;
-    private int        receiveStatus;
+    private int receiveStatus;
     private String name;
-    private String         phone;
+    private String phone;
     private String province;
-    private String        city;
+    private String city;
     private String region;
-    private String        detailAddress;
+    private String detailAddress;
 
     public String getId() {
         return id;

@@ -22,3 +22,13 @@ glmall-itemweb 商品详情前台  端口为 8180
 glmall-searchweb 搜索服务前台 端口为8181和glmall-itemweb （同用glmall-itemservice连接数据库）
 
 glmall-cartweb 购物车前台功能 端口为8182
+
+glmall-passprotweb 前端 用户认证中心 端口为8183
+使用glmall-userservice为后台
+
+glmall-orderweb 前端 结算 端口为8184
+glmall-orderservice 结算后台 8281
+
+glmall-alipaymemtweb 前端 支付 端口为8185
+glmall-alipaymemtservice 支付中心后台 端口为8282
+
