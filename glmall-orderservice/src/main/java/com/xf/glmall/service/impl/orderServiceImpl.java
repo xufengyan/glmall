@@ -7,14 +7,17 @@ import com.xf.glmall.dao.omsOrderItemMapper;
 import com.xf.glmall.dao.omsOrderMapper;
 import com.xf.glmall.entity.OmsOrder;
 import com.xf.glmall.entity.OmsOrderItem;
+import com.xf.glmall.mqConfig.ActiveMQUtil;
 import com.xf.glmall.service.orderService;
 import com.xf.glmall.service.skuService;
+import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
+import tk.mybatis.mapper.entity.Example;
 
-import javax.smartcardio.CardTerminal;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+
+import javax.jms.*;
+import javax.swing.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +32,10 @@ public class orderServiceImpl implements orderService {
     omsOrderMapper omsOrderMapper;
     @Autowired
     omsOrderItemMapper omsOrderItemMapper;
+
+    @Autowired
+    ActiveMQUtil activeMQUtil;
+
 
     @Reference
     skuService skuService;
@@ -108,5 +115,55 @@ public class orderServiceImpl implements orderService {
         OmsOrder omsOrder = omsOrderMapper.selectOne(order);
 
         return omsOrder;
+    }
+
+    @Override
+    public int updateOrderbySn(OmsOrder order) {
+
+        Example example =new Example(OmsOrder.class);
+        example.createCriteria().andEqualTo("orderSn",order.getOrderSn());
+        order.setStatus(1);
+        Connection connection =null;
+        Session session = null;
+        int mag = 0;
+        //创建activeMQ
+        try {
+            connection = activeMQUtil.getConnectionFactory().createConnection();
+            session = connection.createSession(true, Session.SESSION_TRANSACTED);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mag = omsOrderMapper.updateByExampleSelective(order, example);
+
+//            调用mq发送支付成功数据修改的消息
+            //发送库存消费消息
+            Queue payment_success_queue = session.createQueue("ORDER_PAY_QUEUE");
+            MessageProducer producer = session.createProducer(payment_success_queue);
+
+            //普通字符串类型消息
+//            TextMessage textMessage =new ActiveMQTextMessage();
+            //hash类型消息
+            MapMessage mapMessage =new ActiveMQMapMessage();
+//            mapMessage.setString("orderSn",paymentInfo.getOrderSn());
+            producer.send(mapMessage);
+            session.commit();
+        }catch (Exception e){
+            //如果修改出现异常就回滚
+            try {
+                session.rollback();
+                System.out.println("订单修改失败，开始回滚");
+            } catch (JMSException e1) {
+                e1.printStackTrace();
+            }
+        }finally {
+            try {
+                connection.close();
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }
+        return mag;
     }
 }

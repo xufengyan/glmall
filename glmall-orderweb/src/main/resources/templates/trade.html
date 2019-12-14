@@ -61,7 +61,7 @@
 			<div class="top-3">
 				<ul >
 					<li class=".address default selected" th:each="userAddress:${userAddressList}">
-						<input name="deliveryAddress" type="radio" th:value="${userAddress.id}" th:checked="${userAddress.defaultStatus}== 1 ">
+						<input name="deliveryAddress" type="radio" th:value="${userAddress.id}" th:checked="${userAddress.defaultStatus}==1">
 						<span th:text="${userAddress.name}">收件人AAAA </span><span
 							th:text="${userAddress.province}+${userAddress.city}+${userAddress.region}">具体地址111 </span>
 					</li>

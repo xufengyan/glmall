@@ -8,6 +8,7 @@ class GlmallAlipaymemtwebApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

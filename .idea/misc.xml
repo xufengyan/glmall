@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/glmall-user/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-api/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-commonUtil/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-serviceUtil/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-webUtil/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-userservice/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-userweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-serviceitem/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-webitem/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-itemweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-searchweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-itemservice/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-cartweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-passprotweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-orderservice/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-orderweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-alipaymemtweb/pom.xml" />
+        <option value="$PROJECT_DIR$/glmall-alipaymemtservice/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="1.8.0_73" project-jdk-type="JavaSDK" />
+</project>

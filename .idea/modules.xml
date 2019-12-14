@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/glmall.iml" filepath="$PROJECT_DIR$/.idea/glmall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-alipaymemtservice/glmall-alipaymemtservice.iml" filepath="$PROJECT_DIR$/glmall-alipaymemtservice/glmall-alipaymemtservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-alipaymemtweb/glmall-alipaymemtweb.iml" filepath="$PROJECT_DIR$/glmall-alipaymemtweb/glmall-alipaymemtweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-api/glmall-api.iml" filepath="$PROJECT_DIR$/glmall-api/glmall-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-cartweb/glmall-cartweb.iml" filepath="$PROJECT_DIR$/glmall-cartweb/glmall-cartweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-commonUtil/glmall-commonUtil.iml" filepath="$PROJECT_DIR$/glmall-commonUtil/glmall-commonUtil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-itemservice/glmall-itemservice.iml" filepath="$PROJECT_DIR$/glmall-itemservice/glmall-itemservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-itemweb/glmall-itemweb.iml" filepath="$PROJECT_DIR$/glmall-itemweb/glmall-itemweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-orderservice/glmall-orderservice.iml" filepath="$PROJECT_DIR$/glmall-orderservice/glmall-orderservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-orderweb/glmall-orderweb.iml" filepath="$PROJECT_DIR$/glmall-orderweb/glmall-orderweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-parent/glmall-parent.iml" filepath="$PROJECT_DIR$/glmall-parent/glmall-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-passprotweb/glmall-passprotweb.iml" filepath="$PROJECT_DIR$/glmall-passprotweb/glmall-passprotweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-searchweb/glmall-searchweb.iml" filepath="$PROJECT_DIR$/glmall-searchweb/glmall-searchweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-serviceUtil/glmall-serviceUtil.iml" filepath="$PROJECT_DIR$/glmall-serviceUtil/glmall-serviceUtil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-user/glmall-user.iml" filepath="$PROJECT_DIR$/glmall-user/glmall-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-userservice/glmall-userservice.iml" filepath="$PROJECT_DIR$/glmall-userservice/glmall-userservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-userweb/glmall-userweb.iml" filepath="$PROJECT_DIR$/glmall-userweb/glmall-userweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glmall-webUtil/glmall-webUtil.iml" filepath="$PROJECT_DIR$/glmall-webUtil/glmall-webUtil.iml" />
+    </modules>
+  </component>
+</project>

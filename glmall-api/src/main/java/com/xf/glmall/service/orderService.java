@@ -12,4 +12,6 @@ public interface orderService {
     void saveOrder(OmsOrder omsOrder);
 
     OmsOrder getOrderByorderSn(OmsOrder order);
+
+    int updateOrderbySn(OmsOrder order);
 }

@@ -21,7 +21,6 @@
     </build>
 
     <dependencies>
-
         <!--简化代码插件-->
         <dependency>
             <groupId>org.projectlombok</groupId>

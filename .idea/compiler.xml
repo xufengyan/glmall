@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="glmall-alipaymemtservice" />
+        <module name="glmall-alipaymemtweb" />
+        <module name="glmall-api" />
+        <module name="glmall-cartweb" />
+        <module name="glmall-commonUtil" />
+        <module name="glmall-itemservice" />
+        <module name="glmall-itemweb" />
+        <module name="glmall-orderservice" />
+        <module name="glmall-orderweb" />
+        <module name="glmall-passprotweb" />
+        <module name="glmall-searchweb" />
+        <module name="glmall-serviceUtil" />
+        <module name="glmall-user" />
+        <module name="glmall-userservice" />
+        <module name="glmall-userweb" />
+        <module name="glmall-webUtil" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="glmall-alipaymemtservice" target="1.8" />
+      <module name="glmall-alipaymemtweb" target="1.8" />
+      <module name="glmall-api" target="6" />
+      <module name="glmall-cartweb" target="1.8" />
+      <module name="glmall-commonUtil" target="1.8" />
+      <module name="glmall-item" target="1.8" />
+      <module name="glmall-itemservice" target="1.8" />
+      <module name="glmall-itemweb" target="1.8" />
+      <module name="glmall-orderservice" target="1.8" />
+      <module name="glmall-orderweb" target="1.8" />
+      <module name="glmall-parent" target="1.8" />
+      <module name="glmall-passprotweb" target="1.8" />
+      <module name="glmall-paymemtservice" target="1.8" />
+      <module name="glmall-paymemtweb" target="1.8" />
+      <module name="glmall-searchweb" target="1.8" />
+      <module name="glmall-serviceUtil" target="1.8" />
+      <module name="glmall-user" target="1.8" />
+      <module name="glmall-userserivce" target="1.8" />
+      <module name="glmall-userservice" target="1.8" />
+      <module name="glmall-userweb" target="1.8" />
+      <module name="glmall-webUtil" target="1.8" />
+      <module name="orderweb" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="glmall-alipaymemtservice" options="-parameters" />
+      <module name="glmall-alipaymemtweb" options="-parameters" />
+      <module name="glmall-cartweb" options="-parameters" />
+      <module name="glmall-commonUtil" options="-parameters" />
+      <module name="glmall-item" options="-parameters" />
+      <module name="glmall-itemservice" options="-parameters" />
+      <module name="glmall-itemweb" options="-parameters" />
+      <module name="glmall-orderservice" options="-parameters" />
+      <module name="glmall-orderweb" options="-parameters" />
+      <module name="glmall-passprotweb" options="-parameters" />
+      <module name="glmall-paymemtservice" options="-parameters" />
+      <module name="glmall-paymemtweb" options="-parameters" />
+      <module name="glmall-searchweb" options="-parameters" />
+      <module name="glmall-serviceUtil" options="-parameters" />
+      <module name="glmall-user" options="-parameters" />
+      <module name="glmall-userserivce" options="-parameters" />
+      <module name="glmall-userservice" options="-parameters" />
+      <module name="glmall-userweb" options="-parameters" />
+      <module name="glmall-webUtil" options="-parameters" />
+      <module name="orderweb" options="-parameters" />
+    </option>
+  </component>
+</project>

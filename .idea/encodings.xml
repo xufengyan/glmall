@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/glmall-alipaymemtservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-alipaymemtweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-cartweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-commonUtil" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-itemservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-itemweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-orderservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-orderweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-passprotweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-searchweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-serviceUtil" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-userservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-userweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/glmall-webUtil" charset="UTF-8" />
+  </component>
+</project>
