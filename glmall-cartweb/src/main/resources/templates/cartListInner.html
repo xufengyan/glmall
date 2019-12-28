@@ -79,10 +79,13 @@
     <div><button  onclick="toTrade()" type="button">去结算</button></div>
 </div>
 </body>
+<script src="/js/jquery-3.1.1.min.js"  charset="utf-8"></script>
 <script type="text/javascript">
 
     function toTrade(){
-        window.location.href="http://cart.xf.com:8184/toTrade.html";
+        $.post("http://hongji.wy.com/excel/testJson",{},function (token){
+            alert(token);
+        });
     }
     function toItem(skuId) {
         window.location.href="http://192.168.101.21:8180/"+skuId+".html";

@@ -6,9 +6,9 @@
     <link rel="icon" href="/img/心04.png" type="/image/x-icon"/>
     <link rel="stylesheet" href="/css/One_bdyStyle.css">
     <link rel="stylesheet" href="/css/index.css">
-    <script src="/js/jquery-3.1.1.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/One_mainFoot.css">
     <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.css" />
+    <script src="/js/jquery-3.1.1.min.js"  charset="utf-8"></script>
 </head>
 <body>
 <header>
@@ -154,10 +154,28 @@
 </div>
 </body>
 <script src="/js/index.js" charset="utf-8"></script>
-<script type="text/javascript">
+<script type="javascript">
 
      function toTrade(){
-         window.location.href="http://cart.xf.com:8184/toTrade.html";
+         // // window.location.href="http://218.65.105.60:7774/excel/testJson";
+         $.post("http://hongji.wy.com/excel/testJson",{},function (token){
+             alert(token);
+         });
+         // $.ajax({
+         //     url: "http://hongji.wy.com/excel/testJson",
+         //     dataType: "jsonp",
+         //     jsonp: "callback",
+         //     jsonpCallback: "success_jsonpCallback",
+         //     success: function (res) {
+         //         // alert(1);
+         //         console.log(res);
+         //         console.log(res.test0);
+         //     },
+         //     error: function (res) {
+         //         console.log(res);
+         //         alert(2);
+         //     }
+         // })
     }
     function toItem(skuId) {
         window.location.href="http://192.168.101.21:8180/"+skuId+".html";

@@ -32,3 +32,4 @@ glmall-orderservice 结算后台 8281
 glmall-alipaymemtweb 前端 支付 端口为8185
 glmall-alipaymemtservice 支付中心后台 端口为8282
 
+glmall-seckill redis测试秒杀程序 8186
